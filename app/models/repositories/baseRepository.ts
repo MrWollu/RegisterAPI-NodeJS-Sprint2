@@ -155,6 +155,24 @@ export default abstract class BaseRepository<T extends BaseEntity> implements IB
         });
     }
 
+    protected countWhere({ whereContainer = undefined, values = undefined }: any = {}): Promise<number> {
+        return this.count(
+            this.buildSelectQuery([ SQLKeyword.PROJECTION_COUNT ], [], whereContainer, [], BaseRepository._invalidIndex, BaseRepository._invalidIndex)
+            , values
+        )
+    }
+
+    private count(query: string, values: any): Promise<number> {
+        return new Promise(function(resolveToController, rejectToController) {
+            db.one(query, values)
+                .then((data: any) => {
+                        resolveToController(data ? +data.count : 0);
+                    }, (reason: any) => {
+                        rejectToController(reason);
+                    });
+        });
+    }
+
     protected buildSelectQuery(projections: string[], joins: JoinContainer[], where: WhereContainer | undefined, orderBys: OrderByContainer[], limit: number, offset: number): string {
         return (
             SQLKeyword.SELECT + SQLKeyword.SPACE + projections.join()

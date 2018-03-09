@@ -1,4 +1,4 @@
-module.exports = Object.freeze({
-    OR: 'OR',
-    AND: 'AND'
-});
+export enum SQLConditional {
+    OR = 'OR',
+    AND = 'AND'
+};

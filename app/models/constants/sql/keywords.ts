@@ -24,5 +24,6 @@ export enum SQLKeyword {
     OPEN_PLACEHOLDER = '${',
     CLOSE_PLACEHOLDER = '}',
     TABLE_FIELD_SEPARATOR = '.',
+    PROJECTION_COUNT = 'COUNT(*)',
     INSERT_PREAMBLE = 'INSERT INTO'
 };
